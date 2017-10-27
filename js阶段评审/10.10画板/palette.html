@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>画板</title>
+	<link rel="stylesheet" href="css/palette.css">
+	<link rel="stylesheet" href="iconfont/iconfont.css">
+</head>
+<body>
+	<main>
+		<ul class="tools">
+			<li id="line" class="iconfont icon-xian- tool" active="true"></li>
+			<li id="dash" class="iconfont icon-xuxian tool"></li>
+			<li id="pencel" class="iconfont icon-qianbi tool"></li>
+			<li id="rect" class="iconfont icon-juxing tool"></li>
+			<li id="circle" class="iconfont icon-02 tool"></li>
+			<li id="poly" class="iconfont icon-wubianxing tool"></li>
+			<li id="polyJ" class="iconfont icon-star_full tool"></li>
+			<li id="font" class="iconfont icon-wenben-copy tool"></li>
+			<div class="fgx"></div>
+			<li id="eraser" class="iconfont icon-xiangpica_s tool"></li>
+			<li id="cancel" class="iconfont icon-chexiao tool"></li>
+			<li id="caijian" class="iconfont icon-caiqie tool"></li>
+			<div class="fgx"></div>
+			<li id="tc" class="iconfont icon-tianchong-hong tool"><input type="color" id="tian"></li>
+			<li id="mb" class="iconfont icon-miaobian tool"><input type="color" id="miao"></li>
+		</ul>
+		<div class="right">
+			<div class="top">
+				<li class="tool"><a href="" id="new" class="iconfont icon-add"></a></li>
+				<li class="tool"><a href="" id="clear" class="iconfont icon-qingkong"></a></li>
+				<li id="reverse" class="iconfont icon-icon_dianzan_yizan_fanxiang tool"></li>
+				<li class="tool"><a href="" id="save" class="iconfont icon-baocun"></a></li>
+				<span>线宽</span>
+				<select name="sel" id="linew">
+					<option value="1">1</option>
+					<option value="3">3</option>
+					<option value="5">5</option>
+					<option value="7">7</option>
+					<option value="10">10</option>
+				</select>
+			</div>
+			<div class="bottom">
+				<canvas width="1371" height="1371"></canvas>
+				<div class="clip"></div>
+				<div class="eraser"></div>
+				<div class="opacity"></div>
+				<!-- <div contenteditable="true" class="zi">111</div>   -->
+				<!-- 可编辑 -->
+		<!-- 原来的位置+鼠标变化的距离 
+			鼠标按下，两次相距浏览器的距离
+		-->
+			</div>
+
+		</div>
+		
+	</main>
+	<script src="js/index.js"></script>
+	<script src="js/palette.js"></script>
+</body>
+</html>

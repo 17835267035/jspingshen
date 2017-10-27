@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// console.dir(localStorage);  是一个对象
+	// localStorage
+	// 	setItem()  设置
+	// 	getItem()  获取
+	// 	removeItem()  移除
+	// 	clear()   清空
+	// localStorage.setItem('name','zhangsan');
+	// localStorage.setItem('age',18);
+	// localStorage.sex = 'nv';
+
+	// localStorage.removeItem('age');
+	// localStorage.clear();
+
+	// localStorage.getItem = 'name';
+	// localStorage.age;
+	// sessionStorage
+
+	let arr = [
+		{name:'张三',sex:'男',class:'131班',num:110,phone:12345},
+		{name:'李四',sex:'女',class:'132班',num:120,phone:12345},
+		{name:'王五',sex:'男',class:'131班',num:130,phone:35968},
+		{name:'赵六',sex:'女',class:'136班',num:140,phone:12345},
+		{name:'周七',sex:'男',class:'138班',num:110,phone:25686},
+		{name:'王八',sex:'女',class:'131班',num:180,phone:12345},
+		{name:'刘九',sex:'男',class:'135班',num:110,phone:12345}
+	];
+
+	localStorage.setItem('students',JSON.stringify(arr)); //对象转换成字符串
+	JSON.parse(localStorage.getItem('students'));//把对象格式的字符串转成对象
+</script>
+</html>

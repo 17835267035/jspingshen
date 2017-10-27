@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>poke</title>
+	<script src="jquery-3.2.1.js"></script>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		overflow: hidden;
+		background: url('img/10.jpg') no-repeat center/cover;
+	}
+	.table{
+		width: 700px;
+		height: 600px;
+		margin: 0 auto;
+		position: relative;
+	}
+	.poke{
+		width: 90px;
+		height: 140px;
+		position: absolute;
+		left: 300px;
+		top: 0;
+		background-position: center;
+		background-size: cover;
+		background-color: #fff;
+		opacity: 0;
+	}
+	.active{
+		box-shadow:0 0 0 2px skyblue;
+	}
+	.btnL,.btnR{
+		width: 80px;
+		height: 30px;
+		border: 3px solid #333;
+		/* border-radius: 10px; */
+		background: #f2f2f2;
+		text-align: center;
+		line-height: 30px;
+		position: absolute;
+		left: 50%;
+		bottom: 50px;
+		cursor: pointer;
+	}
+	.btnL{
+		bottom: 50px;
+	}
+	.btnR{		
+		bottom: 5px;
+	}
+</style>
+<body>
+<div class="table">
+	<div class="btnL">上一张</div>
+	<div class="btnR">下一张</div>
+</div>
+	<script>
+		$(function(){
+			let color = ['a','b','c','d'];
+			let poke = [];
+			let flag = {};
+			let btnR = $('div.btnR');
+			let btnL = $('div.btnL');
+			// for(let i=0;i<52;i++){
+			// 	let hua = color[Math.floor(Math.random()*color.length)];
+			// 	let num = Math.floor(Math.random()*13+1);
+			// 	while(flag[`${hua}_${num}`]){
+			// 		hua = color[Math.floor(Math.random()*color.length)];
+			// 		num = Math.floor(Math.random()*13+1);
+			// 	}
+			// 	poke.push({hua,num});
+			// 	flag[`${hua}_${num}`] = true;
+				
+			// }
+			while(poke.length<52){
+				let hua = color[Math.floor(Math.random()*color.length)];
+				let num = Math.floor(Math.random()*13+1);
+				if(!flag[`${hua}_${num}`]){
+					poke.push({hua,num});
+					flag[`${hua}_${num}`] = true;
+				}
+			}
+			//table
+			let index = 0;
+			for(let i=0;i<7;i++){
+				for(let j=0;j<=i;j++){
+					let left = 300-50*i+100*j,
+						top = 50*i;
+					$('<div>').addClass('poke box')
+					.attr('id',`${i}_${j}`)//坐标
+					// .attr('num',poke[index].num)
+					.data('num',poke[index].num)
+					.css('background-image',`url(img/${poke[index].hua}${poke[index].num}.jpg)`)
+					// .html(`${poke[index]['hua']}---${poke[index]['num']}`)
+					.appendTo('.table')
+					.delay(index*10)
+					.animate({left,top,opacity:1});
+					index++;
+				}
+			}
+			//zuo
+			for(;index<poke.length;index++){
+				$('<div>').addClass('poke zuo')
+				.attr('id',`${-4}_${-4}`)
+				.data('num',poke[index].num)
+				.css('background-image',`url(img/${poke[index].hua}${poke[index].num}.jpg)`)
+				// .html(`${poke[index]['hua']}---${poke[index]['num']}`)
+				.appendTo('.table')
+				.delay(index*10)
+				.animate({left:0,top:460,opacity:1});
+			}
+
+			//点击时抬起
+			let first = null;//判断点击的第几次
+			$('.table').on('click','.poke',function(e){
+				let element = $(e.target);//选中
+				// $(element).css('box-shadow','0 0 0 2px skyblue').animate({top:'-=10'});
+				// 是否被压住
+				let ids = element.attr('id').split('_');
+				let ele1 = `#${ids[0]*1+1}_${ids[1]*1}`;
+				let ele2 = `#${ids[0]*1+1}_${ids[1]*1+1}`;
+				if($(ele1).length || $(ele2).length){
+					return;
+				}
+				// 选中  取消
+				element.toggleClass('active');
+				if(element.hasClass('active')){
+					element.animate({top:'-=20'})
+				}else{
+					element.animate({top:'+=20'})
+				}
+
+				//点数
+				if(!first){
+					first = $(e.target);
+				}else{
+					//first   e.target   队列queue
+					if(first.data('num')+element.data('num')==14){
+						$('.active').animate({top:0,left:600,opacity:0},function(){
+							$(this).remove();
+						})
+					}else{
+						$('.active').animate({top:'+=20'},function(){
+							$(this).removeClass('active');
+						})
+					}
+					first = null;
+				}
+			})
+
+			//左右按钮
+			let zindex = 0;
+			btnR.on('click',function(){
+				if(!$('.zuo').length){return}
+				$('.zuo').css('zIndex',zindex++).last().animate({left:600,top:460})
+				.removeClass('zuo')
+				.addClass('you')
+			})
+			btnL.on('click',function(){
+				if(!$('.you').length){return}
+				$('.you').each(function(index){
+					$(this).css('zIndex',zindex++).delay(index*100)
+					.animate({left:0,top:460})
+					.removeClass('you')
+					.addClass('zuo')
+				})
+				// $('.you').css('zIndex',zindex++).first().animate({left:0,top:460})
+				// .removeClass('you')
+				// .addClass('zuo')
+			})
+			$(document).mousedown(false);//阻止浏览器的默认行为
+			
+		})
+	</script>
+</body>
+</html>

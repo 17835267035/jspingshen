@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打字游戏</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/index.js"></script>
+</head>
+<body>
+	<div>分数:<span class="fen">0</span></div>
+	<div>关卡:<span class="guan">1</span></div>
+	<div class="hps">生命:<span>10</span></div>
+	<button class="starts">开始</button>	
+	<button class="stop">暂停</button>	
+	<button class="con">继续</button>	
+	<button class="close">结束</button>	
+	<button class="chongkai">重新开始</button>
+	<button><a href="../8.29个人主页/index.html">返回</a></button>
+	<!-- <div class="select">
+		<select name="" id="">
+			<option value="">easy</option>
+			<option value="">middle</option>
+			<option value="">hard</option>
+		</select>
+	</div> -->
+	
+
+<script>
+window.onload=function(){
+    let game=new Game();
+	let starts=document.querySelector('.starts');
+	let close=document.querySelector('.close');
+	let stop=document.querySelector('.stop');
+	let cons=document.querySelector('.con');
+	let chongkai=document.querySelector('.chongkai');
+	let guan=document.querySelector('.guan');
+	let fen=document.querySelector('.fen');
+	let xz = document.querySelectorAll('.select option')
+	// console.log(xz)
+    starts.onclick=function(){
+    	game.start(); 
+    }
+    close.onclick=function(){
+    	game.end();
+    }
+    chongkai.onclick=function(){
+    	game.restart();
+    }
+    stop.onclick = function(){
+    	game.stop();
+    }
+    cons.onclick = function(){
+    	game.cons();
+    }
+    
+}
+</script>
+	
+</body>
+</html>
